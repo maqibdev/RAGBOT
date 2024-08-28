@@ -13,3 +13,24 @@
  *= require_tree .
  *= require_self
  */
+ @import "bootstrap";
+
+ #chat-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#chat-responses {
+  flex-grow: 1; /* Allow the responses to grow and take up available space */
+  overflow-y: auto; /* Enable vertical scrolling when content overflows */
+  padding-bottom: 20px; /* Add padding to ensure space between the content and the ask bar */
+}
+
+#query-form-container {
+  flex-shrink: 0; /* Prevent the ask bar from shrinking */
+  background-color: #f8f9fa;
+}
+
+#loading {
+  flex-shrink: 0; /* Prevent the loading spinner from shrinking */
+}
