@@ -1,7 +1,27 @@
 <h1>Welcome to RAGBOT</h1>
 
 <div id="chat-container" class="container d-flex flex-column" data-controller="chat">
-  <turbo-frame id="chat-responses" data-chat-target="responses" class="flex-grow-1 overflow-auto p-3"></turbo-frame>
+  <turbo-frame id="chat-responses" data-chat-target="responses" class="flex-grow-1 overflow-auto p-3">
+    <% @chats.each do |chat| %>
+      <div class="chat-session">
+        <h3><%= chat.title %></h3>
+        <% chat.queries.each do |query| %>
+          <div class="chat-response mb-3 d-flex flex-column">
+            <div class="query-response-container">
+              <p class="query alert alert-secondary text-end"><strong>Your Query:</strong> <%= query.content %></p>
+              <p class="response alert alert-primary"><strong>Response:</strong> <%= query.response.content %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </turbo-frame>
+
+  <div id="loading" class="text-center mt-3" data-chat-target="loading" style="display: none;">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
 
   <div id="query-form-container" class="mt-3">
     <%= form_with(model: @research_paper, url: research_papers_path, method: :post, data: { "chat-target": "form" }, html: { "data-action": "submit->chat#submit" }, class: "p-3 bg-light shadow-lg rounded") do |form| %>
@@ -17,11 +37,5 @@
 
       <%= form.submit "Ask", class: "btn btn-primary", data: { chat_target: "submit" } %>
     <% end %>
-  </div>
-
-  <div id="loading" class="text-center mt-3" data-chat-target="loading" style="display: none;">
-    <div class="spinner-border text-primary" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
   </div>
 </div>

@@ -16,21 +16,42 @@
  @import "bootstrap";
 
  #chat-container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.query-response-container {
   display: flex;
   flex-direction: column;
 }
 
-#chat-responses {
-  flex-grow: 1; /* Allow the responses to grow and take up available space */
-  overflow-y: auto; /* Enable vertical scrolling when content overflows */
-  padding-bottom: 20px; /* Add padding to ensure space between the content and the ask bar */
+.query {
+  align-self: flex-end;
+  background-color: #e1ffc7; /* Light green for the query */
+  border-radius: 15px 15px 0 15px;
+  margin-left: auto;
+  max-width: 60%;
+  text-align: left !important;
 }
 
-#query-form-container {
-  flex-shrink: 0; /* Prevent the ask bar from shrinking */
-  background-color: #f8f9fa;
+.response {
+  align-self: flex-start;
+  background-color: #d1e7ff; /* Light blue for the response */
+  border-radius: 15px 15px 15px 0;
+  margin-right: auto;
+  max-width: 100%;
+  text-align: left;
 }
 
-#loading {
-  flex-shrink: 0; /* Prevent the loading spinner from shrinking */
+/* Remove the border and shadow from the alert classes */
+.alert {
+  border: none;
+  box-shadow: none;
+  padding: 10px 15px;
 }
+
+/* Spacing between messages */
+.chat-response {
+  margin-bottom: 15px;
+}
+

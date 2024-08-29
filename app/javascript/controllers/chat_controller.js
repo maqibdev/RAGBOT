@@ -13,10 +13,12 @@ export default class extends Controller {
     // Show loading spinner
     this.loadingTarget.style.display = "block"
 
-    // Display the user's query immediately
+    // Get the query content from the form
     const formData = new FormData(this.formTarget)
     const query = formData.get("research_paper[query]")
-    this.displayQuery(query)
+
+    // Display the user's query immediately and store the query element
+    const queryElement = this.displayQuery(query)
 
     const url = this.formTarget.action
 
@@ -27,7 +29,7 @@ export default class extends Controller {
     })
       .then(response => response.text())
       .then(html => {
-        this.responsesTarget.insertAdjacentHTML('beforeend', html)
+        this.appendResponseToQuery(queryElement, html)
         this.formTarget.reset()
         this.loadingTarget.style.display = "none"
         this.enableSubmitButton() // Re-enable the submit button
@@ -43,11 +45,20 @@ export default class extends Controller {
 
   displayQuery(query) {
     const queryHtml = `
-      <div class="alert alert-secondary mt-3">
-        <strong>Your Query:</strong> ${query}
+      <div class="chat-response mb-3 d-flex flex-column">
+        <div class="query-response-container">
+          <p class="query alert alert-secondary text-end"><strong>Your Query:</strong> ${query}</p>
+          <div class="response-placeholder"></div>
+        </div>
       </div>
     `
     this.responsesTarget.insertAdjacentHTML('beforeend', queryHtml)
+    return this.responsesTarget.lastElementChild.querySelector('.response-placeholder')
+  }
+
+  appendResponseToQuery(queryElement, responseHtml) {
+    // Insert the response HTML inside the response-placeholder
+    queryElement.innerHTML = responseHtml
   }
 
   enableSubmitButton() {

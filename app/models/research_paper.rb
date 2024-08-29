@@ -1,4 +1,5 @@
 class ResearchPaper < ApplicationRecord
+  belongs_to :chat
   has_many_attached :files
 
   validate :correct_document_mime_type
