@@ -1,0 +1,10 @@
+<h1>All Chat Sessions</h1>
+
+<div class="list-group">
+  <% @chats.each do |chat| %>
+    <a href="<%= chat_path(chat) %>" class="list-group-item list-group-item-action">
+      <h5 class="mb-1"><%= chat.title %></h5>
+      <small>Created at: <%= chat.created_at.strftime("%B %d, %Y %H:%M:%S") %></small>
+    </a>
+  <% end %>
+</div>
