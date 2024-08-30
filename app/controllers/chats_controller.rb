@@ -1,6 +1,6 @@
 class ChatsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_chat, only: [ :show, :create ]
+  before_action :set_chat, only: [ :show, :create, :destroy ]
 
   def index
     @chats = current_user.chats.order(created_at: :desc)
@@ -39,6 +39,17 @@ class ChatsController < ApplicationController
       format.json { render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity }
     end
   end
+
+  def destroy
+    @chat = current_user.chats.find(params[:id])
+    @chat.destroy
+    respond_to do |format|
+      format.html { redirect_to chats_path, notice: "Chat was successfully deleted." }
+      format.json { head :no_content }
+      format.js   # This will render destroy.js.erb
+    end
+  end
+
 
   private
 

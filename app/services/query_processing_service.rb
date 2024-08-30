@@ -7,20 +7,19 @@ class QueryProcessingService
   end
 
   def process
-    create_research_paper
     create_query_and_response
   end
 
-  def create_research_paper
+  def create_query_and_response
     title = @files.any? ? @files.last.original_filename : "Untitled"
-    @research_paper = @chat.research_papers.new(title: title)
+    query = @chat.queries.create!(content: @query_content)
+
+    @research_paper = @chat.research_papers.new(title: title, query_id: query.id)
+
     @files.each { |file| @research_paper.files.attach(file) }
     @research_paper.save!
-  end
 
-  def create_query_and_response
     response_content = send_query_to_python
-    query = @chat.queries.create!(content: @query_content)
     query.create_response!(content: response_content)
   end
 

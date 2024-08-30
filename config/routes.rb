@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   root to: "chats#new"
 
-  resources :chats, only: [ :index, :new, :create, :show ] do
+  resources :chats, only: [ :index, :new, :create, :show, :destroy ] do
     resources :queries, only: [ :create ]  # Nested route for queries within a chat
   end
 end

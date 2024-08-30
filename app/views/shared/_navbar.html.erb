@@ -1,6 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="<%= root_path %>">Ragbot</a>
+    <a class="navbar-brand d-flex align-items-center" href="<%= root_path %>">
+      <img src="<%= asset_path('image.png') %>" alt="RAGBOT Logo" style="height: 35px; margin-right: 10px;">
+      RAGBOT
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -8,13 +11,13 @@
       <ul class="navbar-nav ms-auto">
         <% if user_signed_in? %>
           <li class="nav-item">
-            <a class="nav-link" href="#">Welcome, <%= current_user.email.split('@').first %></a>
+            <a class="nav-link" href="<%=edit_user_registration_path%>">Welcome, <%= current_user.email.split('@').first %></a>
+          </li>
+          <li class="nav-item">
+            <%= link_to "New Chat", root_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<%= chats_path %>">All Sessions</a>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Edit Profile", edit_user_registration_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
             <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "nav-link" %>

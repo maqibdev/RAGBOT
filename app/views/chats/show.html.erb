@@ -7,6 +7,49 @@
           <div class="chat-response mb-3 d-flex flex-column">
             <div class="query-response-container">
               <p class="query alert alert-secondary text-end"><strong>Your Query:</strong> <%= query.content %></p>
+             <!-- Display Uploaded Documents -->
+<% if query.research_paper.files.attached? %>
+  <div class="uploaded-documents mb-3">
+    <ul class="list-group">
+      <% query.research_paper.files.each do |file| %>
+        <li class="list-group-item d-flex align-items-center py-2 px-3" style="border-radius: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+          <% if file.content_type.start_with?('application/pdf') %>
+            <!-- PDF Preview -->
+            <div class="d-flex align-items-center w-100">
+              <i class="bi bi-file-earmark-pdf-fill text-danger me-3" style="font-size: 1.5rem;"></i>
+              <div class="flex-grow-1">
+                <a href="<%= url_for(file) %>" target="_blank" class="text-decoration-none">
+                  <strong class="text-dark">View PDF</strong> <small class="text-muted">(<%= file.filename %>)</small>
+                </a>
+                <embed src="<%= url_for(file) %>" type="application/pdf" width="100%" height="300px" class="mt-2 rounded shadow-sm">
+              </div>
+            </div>
+          <% elsif file.content_type.start_with?('application/msword') || file.content_type.start_with?('application/vnd.openxmlformats-officedocument.wordprocessingml.document') %>
+            <!-- DOC/DOCX Link -->
+            <div class="d-flex align-items-center w-100">
+              <i class="bi bi-file-earmark-word-fill text-primary me-3" style="font-size: 1.5rem;"></i>
+              <div class="flex-grow-1">
+                <a href="<%= url_for(file) %>" target="_blank" class="text-decoration-none">
+                  <strong class="text-dark">Download DOC</strong> <small class="text-muted">(<%= file.filename %>)</small>
+                </a>
+              </div>
+            </div>
+          <% else %>
+            <!-- Other File Types -->
+            <div class="d-flex align-items-center w-100">
+              <i class="bi bi-file-earmark-fill text-secondary me-3" style="font-size: 1.5rem;"></i>
+              <div class="flex-grow-1">
+                <a href="<%= url_for(file) %>" target="_blank" class="text-decoration-none">
+                  <strong class="text-dark">Download File</strong> <small class="text-muted">(<%= file.filename %>)</small>
+                </a>
+              </div>
+            </div>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
               <p class="response alert alert-primary"><strong>Response:</strong> <%= query.response.content %></p>
             </div>
           </div>
