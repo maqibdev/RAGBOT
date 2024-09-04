@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  # Rails service
+  rails:
+    build:
+      context: . # Build Rails from the root directory, where the Rails Dockerfile is located
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0' -p 3000"
+    ports:
+      - "3000:3000" # Expose Rails on port 3000
+    volumes:
+      - .:/rails # Sync the Rails code
+    depends_on:
+      - db # Rails depends on the database
+    environment:
+      RAILS_ENV: development # Run Rails in development mode
+      DATABASE_URL: postgres://postgres:password@db:5432/myapp_development # Development DB
+    env_file:
+      - ./.env # Rails environment variables from .env file
+
+  # FastAPI service
+  fastapi:
+    build:
+      context: ./Ragbot_api # Build FastAPI from the Ragbot_api folder
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload # Reload for FastAPI development
+    ports:
+      - "8000:8000" # Expose FastAPI on port 8000
+    volumes:
+      - ./Ragbot_api:/app # Sync the FastAPI code
+    depends_on:
+      - db # FastAPI can also use the same database if needed
+    env_file:
+      - ./Ragbot_api/.env # FastAPI environment variables
+
+  # PostgreSQL database service
+  db:
+    image: postgres:13 # Use PostgreSQL 13 for the database
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: myapp_development # Use development database
+    volumes:
+      - pgdata:/var/lib/postgresql/data # Persist PostgreSQL data
+
+volumes:
+  pgdata:
