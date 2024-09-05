@@ -2,6 +2,7 @@ require "net/http"
 require "json"
 
 class PythonApiService
+
   PYTHON_API_URL = "http://fastapi:8000/process/"
 
   def process_files_and_query(files, query)
