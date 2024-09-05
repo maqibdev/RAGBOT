@@ -1,0 +1,17 @@
+<%= form_with(model: @chat, url: chats_path, method: :post, data: { turbo_frame: "chat-responses", action: "turbo:submit-start->chat#submitQuery turbo:submit-end->chat#hideLoading" }, class: "p-3 bg-light shadow-lg rounded", multipart: true) do |form| %>
+  <% if @chat.persisted? %>
+    <%= form.hidden_field :id, value: @chat.id %>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :files, "Upload Research Papers" %>
+    <%= form.file_field :files, multiple: true, direct_upload: true, class: "form-control mb-3", required: true, accept: ".pdf,.docx" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :query, "Ask your query" %>
+    <%= form.text_field :query, class: "form-control mb-3", required: true %>
+  </div>
+
+  <%= form.submit "Ask", class: "btn btn-primary" %>
+<% end %>

@@ -1,0 +1,79 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+ @import "bootstrap";
+
+ #chat-container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.query-response-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.query {
+  align-self: flex-end;
+  background-color: #e1ffc7; /* Light green for the query */
+  border-radius: 15px 15px 0 15px;
+  margin-left: auto;
+  max-width: 60%;
+  text-align: left !important;
+}
+
+.response {
+  align-self: flex-start;
+  background-color: #d1e7ff; /* Light blue for the response */
+  border-radius: 15px 15px 15px 0;
+  margin-right: auto;
+  max-width: 100%;
+  text-align: left;
+}
+
+/* Remove the border and shadow from the alert classes */
+.alert {
+  border: none;
+  box-shadow: none;
+  padding: 10px 15px;
+}
+
+/* Spacing between messages */
+.chat-response {
+  margin-bottom: 15px;
+}
+
+.uploaded-documents h5 {
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.list-group-item {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.list-group-item:hover {
+  background-color: #e9ecef;
+}
+
+.embed {
+  max-width: 100%;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  overflow: hidden;
+}
