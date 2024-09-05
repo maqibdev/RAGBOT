@@ -33,7 +33,7 @@ gem "bootsnap", require: false
 
 gem 'devise'
 
-gem 'bootstrap', '~> 5.1.3'
+gem 'bootstrap', '~> 5.3.3'
 
 gem 'image_processing', '~> 1.2'
 
