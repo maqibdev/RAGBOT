@@ -183,7 +183,7 @@ GEM
     parser (3.3.4.2)
       ast (~> 2.4.1)
       racc
-    pg (1.5.7)
+    pg (1.5.8)
     popper_js (2.11.8)
     psych (5.1.2)
       stringio
@@ -348,7 +348,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   multipart-post
-  pg (~> 1.1)
+  pg (~> 1.5)
   puma (>= 5.0)
   rack-cors
   rails (~> 7.2.0)
